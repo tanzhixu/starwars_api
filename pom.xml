@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.unfae</groupId>
+	<artifactId>unfae-starwars</artifactId>
+	<version>0.3.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<scm>
+		<connection>scm:git:http://git-jk:ippjr1314@git.ippjr-inc.com/scm/devops/starwars_api.git</connection>
+		<developerConnection>scm:git:http://git-jk:ippjr1314@git.ippjr-inc.com/scm/devops/starwars_api.git</developerConnection>
+	  <tag>HEAD</tag>
+  	</scm>
+
+  	<properties>  
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
+	</properties>
+
+  	<modules>
+		<module>oauth</module>
+		<module>deploy</module>
+		<module>cmdb</module>
+	</modules>
+
+	<build>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.6.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.5.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>rpm-maven-plugin</artifactId>
+					<version>2.1.1</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<pushChanges>true</pushChanges>
+					<preparationGoals>clean install verify</preparationGoals>
+					<goals>clean install assembly:assembly deploy</goals>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>ippjr-releases</id>
+			<name>IPPJR Releases</name>
+			<url>http://nexus.ippjr-inc.com/content/repositories/ippjr-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>ippjr-snapshot</id>
+			<name>IPPJR Snapshots</name>
+			<url>http://nexus.ippjr-inc.com/content/repositories/ippjr-snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>ippjr-releases</id>
+			<name>ippjr-releases</name>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<url>http://nexus.ippjr-inc.com/content/repositories/ippjr-releases/</url>
+			<layout>default</layout>
+		</repository>
+
+		<repository>
+			<id>ippjr-snapshot</id>
+			<name>ippjr-snapshot</name>
+			<releases>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<url>http://nexus.ippjr-inc.com/content/repositories/ippjr-snapshot/</url>
+			<layout>default</layout>
+		</repository>
+
+		<repository>
+			<id>ippjr-3rd-party</id>
+			<name>IPPJR 3rd party</name>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<url>http://nexus.ippjr-inc.com/content/repositories/ippjr-3rd-party/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>ippjr-3rd-party</id>
+			<name>ippjr-3rd-party</name>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<url>http://nexus.ippjr-inc.com/content/repositories/ippjr-maven-plugin/</url>
+			<layout>default</layout>
+		</pluginRepository>
+	</pluginRepositories>
+</project>
